@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 
 export async function getCourses() {
@@ -11,13 +12,16 @@ export async function getCourses() {
       'page_size': 20,
       'page':200
     });
-    const response = await fetch(`${url}?${params}&fields[course]=@all`, {
-      headers: headers,
+    const response = await axios.get(url, {
+      headers,
+      params
     });
     if (!response.ok) {
       return []
     } else {
+
       const result = await response.json();
+      console.log(result)
       return result;
   }
   } catch (error) {
